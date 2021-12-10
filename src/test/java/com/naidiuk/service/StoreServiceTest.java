@@ -1,7 +1,8 @@
-package com.naidiuk;
+package com.naidiuk.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.naidiuk.entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 class StoreServiceTest {
     private final Store varus = new Store("Varus", 3252213, BigDecimal.valueOf(1470), StoreType.AVERAGE,
@@ -31,15 +34,17 @@ class StoreServiceTest {
 
     @BeforeEach
     void setup() {
-        varus.addProduct(roach);
-        varus.addProduct(stellaArtois);
-        varus.addProduct(jerky);
-        varus.addProduct(lazyCow);
-        varus.addProduct(donut);
+        List<Product> products = new ArrayList<>();
+        products.add(roach);
+        products.add(stellaArtois);
+        products.add(jerky);
+        products.add(lazyCow);
+        products.add(donut);
+        varus.setProducts(products);
     }
 
     @Test
-    void writeStoreToJsonFormatTest() {
+    void testWriteStoreToJsonFormat() {
         //when
         storeService.writeStoreToJsonFormat(varus);
 
@@ -48,7 +53,7 @@ class StoreServiceTest {
     }
 
     @Test
-    void readStoreFromJsonFormatTest() {
+    void testReadStoreFromJsonFormat() {
         //when
         Store store = storeService.readStoreFromJsonFormat();
 
@@ -57,12 +62,12 @@ class StoreServiceTest {
         assertEquals(store.getId(), varus.getId());
         assertEquals(store.getSquare(), varus.getSquare());
         assertEquals(store.getStoreType(), varus.getStoreType());
-        assertEquals(store.getOpeningDate(), varus.getOpeningDate());
-        assertTrue(store.getProduct().retainAll(varus.getProduct()));
+        assertEquals(store.getOpenDate(), varus.getOpenDate());
+        assertTrue(store.getProducts().retainAll(varus.getProducts()));
     }
 
     @Test
-    void writeStoreToXmlFormatTest() {
+    void testWriteStoreToXmlFormat() {
         //when
         storeService.writeStoreToXmlFormat(varus);
 
@@ -71,7 +76,7 @@ class StoreServiceTest {
     }
 
     @Test
-    void readStoreFromXmlFormatTest() {
+    void testReadStoreFromXmlFormat() {
         //when
         Store store = storeService.readStoreFromXmlFormat();
 
@@ -80,7 +85,7 @@ class StoreServiceTest {
         assertEquals(store.getId(), varus.getId());
         assertEquals(store.getSquare(), varus.getSquare());
         assertEquals(store.getStoreType(), varus.getStoreType());
-        assertEquals(store.getOpeningDate(), varus.getOpeningDate());
-        assertTrue(store.getProduct().retainAll(varus.getProduct()));
+        assertEquals(store.getOpenDate(), varus.getOpenDate());
+        assertTrue(store.getProducts().retainAll(varus.getProducts()));
     }
 }

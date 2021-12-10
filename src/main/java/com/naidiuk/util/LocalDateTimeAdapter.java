@@ -1,4 +1,4 @@
-package com.naidiuk;
+package com.naidiuk.util;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;
@@ -6,11 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
 
-    private final DateTimeFormatter formatter;
-
-    public LocalDateTimeAdapter() {
-        formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'T' HH:mm:ss");
-    }
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     @Override
     public LocalDateTime unmarshal(String dateTime) {

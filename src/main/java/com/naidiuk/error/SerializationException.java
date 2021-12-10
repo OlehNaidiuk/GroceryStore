@@ -1,4 +1,4 @@
-package com.naidiuk;
+package com.naidiuk.error;
 
 public class SerializationException extends RuntimeException {
 

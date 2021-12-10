@@ -1,4 +1,4 @@
-package com.naidiuk;
+package com.naidiuk.entity;
 
 public enum StoreType {
     BIG("Гипермаркет"),

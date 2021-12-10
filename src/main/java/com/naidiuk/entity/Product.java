@@ -1,6 +1,7 @@
-package com.naidiuk;
+package com.naidiuk.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.naidiuk.util.LocalDateTimeAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,7 +11,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -21,8 +21,8 @@ public class Product implements Serializable {
     private int id;
     private DepartmentType departmentType;
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-    private @JsonFormat(pattern = "dd-MM-yyyy 'T' HH:mm:ss")
-    LocalDateTime expirationDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime expirationDate;
     private Currency currency;
 
     public Product() {
@@ -42,58 +42,33 @@ public class Product implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public DepartmentType getDepartmentType() {
         return departmentType;
-    }
-
-    public void setDepartmentType(DepartmentType departmentType) {
-        this.departmentType = departmentType;
     }
 
     public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDateTime expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
     public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy 'T' HH:mm:ss");
         return "{Name: " + name + ", " +
                 "Price: " + price + ", " +
                 "Id: " + id + ", " +
                 "Department type: " + departmentType + ", " +
-                "Expiration date: " + formatter.format(expirationDate) + ", " +
-                "Currency: " + currency + "}\n";
+                "Expiration date: " + expirationDate + ", " +
+                "Currency: " + currency + "}";
     }
 }
